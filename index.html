@@ -6,8 +6,7 @@
   <title>Mimi's Recipes</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
+    /* ========== GLOBAL ========== */
     * {
       margin: 0;
       padding: 0;
@@ -24,14 +23,125 @@
       padding: 24px;
     }
 
-    .app {
+    /* ========== LOGIN SCREEN ========== */
+    #loginScreen {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    #loginScreen h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    #loginScreen .subtitle {
+      color: #666666;
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    .login-form .form-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .login-form label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      background: #f5f5f5;
+      transition: all 0.3s ease;
+    }
+
+    .login-form input:focus {
+      outline: none;
+      border-color: #666666;
+      background: #ffffff;
+      box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .login-form .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: #1a1a1a;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      margin-top: 8px;
+    }
+
+    .login-form .btn-primary:hover {
+      background: #333333;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .login-form .btn-secondary {
+      background: transparent;
+      color: #666666;
+      border: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-top: 16px;
+      text-decoration: underline;
+      font-family: inherit;
+    }
+
+    .login-form .btn-secondary:hover {
+      color: #1a1a1a;
+    }
+
+    .login-error {
+      color: #dc3545;
+      font-size: 0.9rem;
+      margin-top: 12px;
+      min-height: 24px;
+    }
+
+    .login-success {
+      color: #28a745;
+      font-size: 0.9rem;
+      margin-top: 12px;
+      min-height: 24px;
+    }
+
+    /* ========== APP CONTAINER ========== */
+    #appContainer {
+      display: none;
       width: 1440px;
       max-width: 100%;
       height: 92vh;
       background: #ffffff;
       border-radius: 16px;
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .app {
       display: flex;
+      height: 100%;
       overflow: hidden;
       position: relative;
     }
@@ -56,7 +166,7 @@
     .sidebar-brand {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       margin-bottom: 20px;
     }
 
@@ -65,6 +175,30 @@
       font-weight: 700;
       color: #1a1a1a;
       letter-spacing: -0.5px;
+    }
+
+    .sidebar-brand .user-info {
+      font-size: 0.8rem;
+      color: #666666;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-brand .user-info button {
+      background: none;
+      border: none;
+      color: #dc3545;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .sidebar-brand .user-info button:hover {
+      background: #f5f5f5;
     }
 
     .search-box {
@@ -178,6 +312,16 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .recipe-item .item-author {
+      font-size: 0.75rem;
+      color: #999999;
+      margin-top: 2px;
+    }
+
+    .recipe-item.active .item-author {
+      color: rgba(255, 255, 255, 0.6);
     }
 
     .recipe-empty {
@@ -767,7 +911,7 @@
         display: none !important;
       }
 
-      .app {
+      #appContainer {
         height: auto !important;
         border-radius: 0 !important;
         box-shadow: none !important;
@@ -802,7 +946,7 @@
 
     /* ========== RESPONSIVE ========== */
     @media (max-width: 1024px) {
-      .app {
+      #appContainer {
         height: 96vh;
         flex-direction: column;
         border-radius: 10px;
@@ -848,7 +992,7 @@
         padding: 12px;
       }
 
-      .app {
+      #appContainer {
         height: 98vh;
         border-radius: 10px;
       }
@@ -887,6 +1031,12 @@
         gap: 8px;
       }
 
+      .sidebar-brand {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
       .sidebar-brand h2 {
         font-size: 1.2rem;
       }
@@ -912,543 +1062,839 @@
   </style>
 </head>
 <body>
-  <div class="app">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-brand">
-          <h2>Mimi's Recipes</h2>
-        </div>
-        <div class="search-box">
-          <i class="fas fa-search"></i>
-          <input id="search" type="text" placeholder="Search recipes..." />
-        </div>
-        <button id="newBtnSidebar" class="btn-sidebar-new">
-          <i class="fas fa-plus"></i>
-          New Recipe
-        </button>
+
+  <!-- ========== LOGIN SCREEN ========== -->
+  <div id="loginScreen">
+    <h1>Mimi's Recipes</h1>
+    <p class="subtitle">Sign in to manage your recipes</p>
+
+    <form id="loginForm" class="login-form">
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="your@email.com" required />
       </div>
-      <div class="recipe-list" id="recipeList"></div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main class="main-content">
-      <div class="content-top">
-        <div class="title-section">
-          <h1 id="formTitle">New Recipe</h1>
-        </div>
-        <div class="action-buttons-top">
-          <button id="pdfBtn" class="btn-sm btn-sm-pdf" style="display: none;">
-            <i class="fas fa-file-pdf"></i>
-            Generate PDF
-          </button>
-          <button id="editBtn" class="btn-sm btn-sm-secondary" style="display: none;">
-            <i class="fas fa-pen"></i>
-            Edit
-          </button>
-        </div>
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••" required />
       </div>
+      <button type="submit" class="btn-primary" id="loginBtn">Sign In</button>
+      <div id="loginError" class="login-error"></div>
+      <div id="loginSuccess" class="login-success"></div>
+      <button type="button" class="btn-secondary" id="switchToSignup">Don't have an account? Create one</button>
+    </form>
 
-      <!-- Empty State -->
-      <div id="emptyState" class="empty-state">
-        <div class="empty-icon">
-          <i class="fas fa-utensil-spoon"></i>
-        </div>
-        <h3>No recipe selected</h3>
-        <p>Choose a recipe from the list or create a new one to get started</p>
-        <button class="btn-create" id="createFromEmpty">
-          <i class="fas fa-plus-circle"></i>
-          Create New Recipe
-        </button>
+    <form id="signupForm" class="login-form" style="display: none;">
+      <div class="form-group">
+        <label for="signupName">Full Name</label>
+        <input type="text" id="signupName" placeholder="Your name" required />
       </div>
-
-      <!-- Recipe View -->
-      <div id="recipeView" class="recipe-view">
-        <div class="recipe-view-header">
-          <h1 id="printName">Recipe Name</h1>
-        </div>
-
-        <div class="recipe-view-section">
-          <h2>Ingredients</h2>
-          <ul class="recipe-view-ingredients" id="viewIngredients">
-            <li style="color: #999; font-style: italic;">No ingredients registered</li>
-          </ul>
-        </div>
-
-        <div class="recipe-view-section">
-          <h2>Method</h2>
-          <div class="recipe-view-method" id="viewMethod">
-            <p style="color: #999; font-style: italic;">No instructions registered</p>
-          </div>
-        </div>
-
-        <div class="recipe-view-footer">
-          <span>Mimi's Recipes</span>
-          <span>RCM App</span>
-        </div>
+      <div class="form-group">
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="your@email.com" required />
       </div>
-
-      <!-- Form (Edit Mode) -->
-      <form id="recipeForm" class="recipe-form">
-        <input type="hidden" id="recipeIndex" />
-
-        <div class="form-group">
-          <label for="name">Recipe name</label>
-          <input id="name" type="text" placeholder="E.g.: Chocolate cake" required />
-        </div>
-
-        <div class="form-group">
-          <label for="ingredients">Ingredients</label>
-          <div class="ingredients-container" id="ingredientsContainer">
-            <div id="ingredientsList">
-              <div class="ingredients-empty">
-                <i class="fas fa-plus-circle" style="font-size: 1.5rem; display: block; margin-bottom: 8px;"></i>
-                <p>Click "Add Ingredient" to get started</p>
-              </div>
-            </div>
-            <div class="ingredients-actions">
-              <button type="button" class="btn-add-ingredient" id="addIngredientBtn">
-                <i class="fas fa-plus"></i>
-                Add Ingredient
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="method">Method</label>
-          <textarea id="method" class="autoresize" placeholder="Describe the step-by-step instructions" required></textarea>
-        </div>
-
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary" id="saveBtn">
-            <i class="fas fa-save"></i>
-            Save
-          </button>
-          <button type="button" id="deleteBtn" class="btn btn-danger" style="display: none;">
-            <i class="fas fa-trash"></i>
-            Delete
-          </button>
-          <button type="button" id="backBtn" class="btn btn-secondary">
-            <i class="fas fa-arrow-left"></i>
-            Back
-          </button>
-        </div>
-      </form>
-    </main>
+      <div class="form-group">
+        <label for="signupPassword">Password</label>
+        <input type="password" id="signupPassword" placeholder="Min 6 characters" required />
+      </div>
+      <button type="submit" class="btn-primary" id="signupBtn">Create Account</button>
+      <div id="signupError" class="login-error"></div>
+      <div id="signupSuccess" class="login-success"></div>
+      <button type="button" class="btn-secondary" id="switchToLogin">Already have an account? Sign in</button>
+    </form>
   </div>
 
-  <script>
-    (function () {
-      const listEl = document.getElementById("recipeList");
-      const form = document.getElementById("recipeForm");
-      const emptyState = document.getElementById("emptyState");
-      const recipeView = document.getElementById("recipeView");
-      const formTitle = document.getElementById("formTitle");
-      const searchInput = document.getElementById("search");
-      const nameInput = document.getElementById("name");
-      const methodInput = document.getElementById("method");
-      const indexInput = document.getElementById("recipeIndex");
-      const deleteBtn = document.getElementById("deleteBtn");
-      const editBtn = document.getElementById("editBtn");
-      const pdfBtn = document.getElementById("pdfBtn");
-      const newBtnSidebar = document.getElementById("newBtnSidebar");
-      const saveBtn = document.getElementById("saveBtn");
-      const backBtn = document.getElementById("backBtn");
-      const createFromEmpty = document.getElementById("createFromEmpty");
-      const ingredientsList = document.getElementById("ingredientsList");
-      const addIngredientBtn = document.getElementById("addIngredientBtn");
+  <!-- ========== APP CONTAINER ========== -->
+  <div id="appContainer">
+    <div class="app">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-brand">
+            <h2>Mimi's Recipes</h2>
+            <div class="user-info">
+              <span id="userDisplayName">User</span>
+              <button id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+          </div>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input id="search" type="text" placeholder="Search recipes..." />
+          </div>
+          <button id="newBtnSidebar" class="btn-sidebar-new">
+            <i class="fas fa-plus"></i>
+            New Recipe
+          </button>
+        </div>
+        <div class="recipe-list" id="recipeList"></div>
+      </aside>
 
-      const viewIngredients = document.getElementById("viewIngredients");
-      const viewMethod = document.getElementById("viewMethod");
-      const printName = document.getElementById("printName");
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        <div class="content-top">
+          <div class="title-section">
+            <h1 id="formTitle">New Recipe</h1>
+          </div>
+          <div class="action-buttons-top">
+            <button id="pdfBtn" class="btn-sm btn-sm-pdf" style="display: none;">
+              <i class="fas fa-file-pdf"></i>
+              Generate PDF
+            </button>
+            <button id="editBtn" class="btn-sm btn-sm-secondary" style="display: none;">
+              <i class="fas fa-pen"></i>
+              Edit
+            </button>
+          </div>
+        </div>
 
-      const UNITS = ['Kg', 'g', 'L', 'ml', 'Tbsp', 'tsp'];
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">
+            <i class="fas fa-utensil-spoon"></i>
+          </div>
+          <h3>No recipe selected</h3>
+          <p>Choose a recipe from the list or create a new one to get started</p>
+          <button class="btn-create" id="createFromEmpty">
+            <i class="fas fa-plus-circle"></i>
+            Create New Recipe
+          </button>
+        </div>
 
-      let recipes = JSON.parse(localStorage.getItem("recipes") || "[]");
-      let currentIndex = -1;
-      let isEditing = false;
-      let ingredients = [];
+        <!-- Recipe View -->
+        <div id="recipeView" class="recipe-view">
+          <div class="recipe-view-header">
+            <h1 id="printName">Recipe Name</h1>
+          </div>
 
-      function autoResizeTextarea(textarea) {
-        textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + 'px';
+          <div class="recipe-view-section">
+            <h2>Ingredients</h2>
+            <ul class="recipe-view-ingredients" id="viewIngredients">
+              <li style="color: #999; font-style: italic;">No ingredients registered</li>
+            </ul>
+          </div>
+
+          <div class="recipe-view-section">
+            <h2>Method</h2>
+            <div class="recipe-view-method" id="viewMethod">
+              <p style="color: #999; font-style: italic;">No instructions registered</p>
+            </div>
+          </div>
+
+          <div class="recipe-view-footer">
+            <span>Mimi's Recipes</span>
+            <span>RCM App</span>
+          </div>
+        </div>
+
+        <!-- Form (Edit Mode) -->
+        <form id="recipeForm" class="recipe-form">
+          <input type="hidden" id="recipeId" />
+
+          <div class="form-group">
+            <label for="name">Recipe name</label>
+            <input id="name" type="text" placeholder="E.g.: Chocolate cake" required />
+          </div>
+
+          <div class="form-group">
+            <label for="ingredients">Ingredients</label>
+            <div class="ingredients-container" id="ingredientsContainer">
+              <div id="ingredientsList">
+                <div class="ingredients-empty">
+                  <i class="fas fa-plus-circle" style="font-size: 1.5rem; display: block; margin-bottom: 8px;"></i>
+                  <p>Click "Add Ingredient" to get started</p>
+                </div>
+              </div>
+              <div class="ingredients-actions">
+                <button type="button" class="btn-add-ingredient" id="addIngredientBtn">
+                  <i class="fas fa-plus"></i>
+                  Add Ingredient
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="method">Method</label>
+            <textarea id="method" class="autoresize" placeholder="Describe the step-by-step instructions" required></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" id="saveBtn">
+              <i class="fas fa-save"></i>
+              Save
+            </button>
+            <button type="button" id="deleteBtn" class="btn btn-danger" style="display: none;">
+              <i class="fas fa-trash"></i>
+              Delete
+            </button>
+            <button type="button" id="backBtn" class="btn btn-secondary">
+              <i class="fas fa-arrow-left"></i>
+              Back
+            </button>
+          </div>
+        </form>
+      </main>
+    </div>
+  </div>
+
+  <!-- ========== FIREBASE SDK (MODULES) ========== -->
+  <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+        "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+        "firebase/firestore": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
       }
+    }
+  </script>
 
-      document.querySelectorAll('.autoresize').forEach(textarea => {
-        textarea.addEventListener('input', function() {
-          autoResizeTextarea(this);
-        });
-        setTimeout(() => autoResizeTextarea(textarea), 0);
+  <script type="module">
+    // ========== FIREBASE IMPORTS ==========
+    import { initializeApp } from "firebase/app";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+    import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy, serverTimestamp } from "firebase/firestore";
+
+    // ========== FIREBASE CONFIG ==========
+    const firebaseConfig = {
+      apiKey: "AIzaSyBur_PTV5tLt-xFIuSnn-mC69P1dzSCv4A",
+      authDomain: "mimis-recipe.firebaseapp.com",
+      projectId: "mimis-recipe",
+      storageBucket: "mimis-recipe.firebasestorage.app",
+      messagingSenderId: "229453946851",
+      appId: "1:229453946851:web:d915e523683e84f9558ad6",
+      measurementId: "G-0997XZZNL1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ========== DOM REFERENCES ==========
+    const loginScreen = document.getElementById('loginScreen');
+    const appContainer = document.getElementById('appContainer');
+
+    // Login form
+    const loginForm = document.getElementById('loginForm');
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
+    const loginError = document.getElementById('loginError');
+    const loginSuccess = document.getElementById('loginSuccess');
+    const switchToSignup = document.getElementById('switchToSignup');
+
+    // Signup form
+    const signupForm = document.getElementById('signupForm');
+    const signupName = document.getElementById('signupName');
+    const signupEmail = document.getElementById('signupEmail');
+    const signupPassword = document.getElementById('signupPassword');
+    const signupError = document.getElementById('signupError');
+    const signupSuccess = document.getElementById('signupSuccess');
+    const switchToLogin = document.getElementById('switchToLogin');
+
+    // App elements
+    const userDisplayName = document.getElementById('userDisplayName');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Recipe list / form elements (same as before)
+    const listEl = document.getElementById("recipeList");
+    const form = document.getElementById("recipeForm");
+    const emptyState = document.getElementById("emptyState");
+    const recipeView = document.getElementById("recipeView");
+    const formTitle = document.getElementById("formTitle");
+    const searchInput = document.getElementById("search");
+    const nameInput = document.getElementById("name");
+    const methodInput = document.getElementById("method");
+    const recipeIdInput = document.getElementById("recipeId");
+    const deleteBtn = document.getElementById("deleteBtn");
+    const editBtn = document.getElementById("editBtn");
+    const pdfBtn = document.getElementById("pdfBtn");
+    const newBtnSidebar = document.getElementById("newBtnSidebar");
+    const saveBtn = document.getElementById("saveBtn");
+    const backBtn = document.getElementById("backBtn");
+    const createFromEmpty = document.getElementById("createFromEmpty");
+    const ingredientsList = document.getElementById("ingredientsList");
+    const addIngredientBtn = document.getElementById("addIngredientBtn");
+
+    const viewIngredients = document.getElementById("viewIngredients");
+    const viewMethod = document.getElementById("viewMethod");
+    const printName = document.getElementById("printName");
+
+    const UNITS = ['Kg', 'g', 'L', 'ml', 'Tbsp', 'tsp'];
+
+    // ========== STATE ==========
+    let currentUser = null; // { uid, displayName, email }
+    let currentRecipeId = null; // Firestore doc id
+    let ingredients = [];
+    let allRecipes = []; // cached for filtering
+    let unsubscribeRecipes = null;
+
+    // ========== TOAST ==========
+    function showToast(message, type = "success") {
+      const existing = document.querySelector(".toast");
+      if (existing) existing.remove();
+
+      const toast = document.createElement("div");
+      toast.className = `toast toast-${type}`;
+      toast.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+        ${message}
+      `;
+      document.body.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.add("show");
       });
 
-      function showToast(message, type = "success") {
-        const existing = document.querySelector(".toast");
-        if (existing) existing.remove();
+      setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.remove(), 400);
+      }, 3000);
+    }
 
-        const toast = document.createElement("div");
-        toast.className = `toast toast-${type}`;
-        toast.innerHTML = `
-          <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
-          ${message}
-        `;
-        document.body.appendChild(toast);
+    // ========== AUTH FUNCTIONS ==========
+    function showLogin() {
+      loginScreen.style.display = 'block';
+      appContainer.style.display = 'none';
+    }
 
-        requestAnimationFrame(() => {
-          toast.classList.add("show");
-        });
+    function showApp() {
+      loginScreen.style.display = 'none';
+      appContainer.style.display = 'block';
+    }
 
-        setTimeout(() => {
-          toast.classList.remove("show");
-          setTimeout(() => toast.remove(), 400);
-        }, 3000);
+    function switchForm(toSignup) {
+      loginForm.style.display = toSignup ? 'none' : 'block';
+      signupForm.style.display = toSignup ? 'block' : 'none';
+      loginError.textContent = '';
+      loginSuccess.textContent = '';
+      signupError.textContent = '';
+      signupSuccess.textContent = '';
+    }
+
+    // Login
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = loginEmail.value.trim();
+      const password = loginPassword.value;
+      loginError.textContent = '';
+      loginSuccess.textContent = '';
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        loginSuccess.textContent = 'Signed in successfully!';
+      } catch (error) {
+        loginError.textContent = error.message;
+      }
+    });
+
+    // Signup
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = signupName.value.trim();
+      const email = signupEmail.value.trim();
+      const password = signupPassword.value;
+      signupError.textContent = '';
+      signupSuccess.textContent = '';
+
+      if (!name) {
+        signupError.textContent = 'Please enter your name.';
+        return;
       }
 
-      function saveToStorage() {
-        localStorage.setItem("recipes", JSON.stringify(recipes));
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        // Update profile with display name
+        await updateProfile(userCredential.user, { displayName: name });
+        signupSuccess.textContent = 'Account created!';
+      } catch (error) {
+        signupError.textContent = error.message;
       }
+    });
 
-      function renderList(filter = "") {
-        listEl.innerHTML = "";
-        const filtered = recipes.filter((r) =>
-          r.name.toLowerCase().includes(filter.toLowerCase())
-        );
+    // Switch between login and signup
+    switchToSignup.addEventListener('click', () => switchForm(true));
+    switchToLogin.addEventListener('click', () => switchForm(false));
 
-        if (filtered.length === 0) {
-          listEl.innerHTML = `
-            <div class="recipe-empty">
-              <i class="fas fa-utensils"></i>
-              <p>${filter ? 'No recipes found' : 'Start by creating your first recipe!'}</p>
-            </div>
-          `;
-          return;
+    // Logout
+    logoutBtn.addEventListener('click', async () => {
+      try {
+        await signOut(auth);
+        showLogin();
+        // Clean up real-time listener
+        if (unsubscribeRecipes) {
+          unsubscribeRecipes();
+          unsubscribeRecipes = null;
         }
-
-        filtered.forEach((recipe) => {
-          const actualIdx = recipes.indexOf(recipe);
-          const div = document.createElement("div");
-          div.className = "recipe-item";
-          if (actualIdx === currentIndex) div.classList.add("active");
-
-          div.innerHTML = `<div class="item-name">${recipe.name}</div>`;
-          div.dataset.idx = actualIdx;
-          listEl.appendChild(div);
-        });
-      }
-
-      function renderIngredients() {
-        if (ingredients.length === 0) {
-          ingredientsList.innerHTML = `
-            <div class="ingredients-empty">
-              <i class="fas fa-plus-circle" style="font-size: 1.5rem; display: block; margin-bottom: 8px;"></i>
-              <p>Click "Add Ingredient" to get started</p>
-            </div>
-          `;
-          return;
-        }
-
-        ingredientsList.innerHTML = '';
-        ingredients.forEach((ing, idx) => {
-          const row = document.createElement('div');
-          row.className = 'ingredient-row';
-
-          const amountInput = document.createElement('input');
-          amountInput.type = 'number';
-          amountInput.step = '0.01';
-          amountInput.className = 'ingredient-amount';
-          amountInput.placeholder = 'Qty';
-          amountInput.value = ing.amount || '';
-          amountInput.dataset.idx = idx;
-
-          const unitSelect = document.createElement('select');
-          unitSelect.className = 'ingredient-unit';
-          unitSelect.dataset.idx = idx;
-
-          UNITS.forEach(unit => {
-            const option = document.createElement('option');
-            option.value = unit;
-            option.textContent = unit;
-            if (ing.unit === unit) option.selected = true;
-            unitSelect.appendChild(option);
-          });
-
-          const nameInputField = document.createElement('input');
-          nameInputField.type = 'text';
-          nameInputField.className = 'ingredient-name';
-          nameInputField.placeholder = 'Ingredient name';
-          nameInputField.value = ing.name || '';
-          nameInputField.dataset.idx = idx;
-
-          const removeBtn = document.createElement('button');
-          removeBtn.type = 'button';
-          removeBtn.className = 'ingredient-remove';
-          removeBtn.innerHTML = '<i class="fas fa-times"></i>';
-          removeBtn.dataset.idx = idx;
-
-          amountInput.addEventListener('change', function() {
-            const idx = parseInt(this.dataset.idx);
-            ingredients[idx].amount = this.value;
-          });
-
-          unitSelect.addEventListener('change', function() {
-            const idx = parseInt(this.dataset.idx);
-            ingredients[idx].unit = this.value;
-          });
-
-          nameInputField.addEventListener('change', function() {
-            const idx = parseInt(this.dataset.idx);
-            ingredients[idx].name = this.value;
-          });
-
-          removeBtn.addEventListener('click', function() {
-            const idx = parseInt(this.dataset.idx);
-            ingredients.splice(idx, 1);
-            renderIngredients();
-          });
-
-          row.appendChild(amountInput);
-          row.appendChild(unitSelect);
-          row.appendChild(nameInputField);
-          row.appendChild(removeBtn);
-          ingredientsList.appendChild(row);
-        });
-      }
-
-      function addIngredient() {
-        ingredients.push({ amount: '', unit: 'g', name: '' });
-        renderIngredients();
-        const amountInputs = ingredientsList.querySelectorAll('.ingredient-amount');
-        if (amountInputs.length > 0) {
-          amountInputs[amountInputs.length - 1].focus();
-        }
-      }
-
-      function getIngredientsData() {
-        const rows = ingredientsList.querySelectorAll('.ingredient-row');
-        const data = [];
-        rows.forEach(row => {
-          const amount = row.querySelector('.ingredient-amount')?.value || '';
-          const unit = row.querySelector('.ingredient-unit')?.value || 'g';
-          const name = row.querySelector('.ingredient-name')?.value || '';
-          if (name.trim()) {
-            data.push({ amount, unit, name });
-          }
-        });
-        return data;
-      }
-
-      function setIngredientsData(data) {
-        ingredients = data.map(ing => ({
-          amount: ing.amount || '',
-          unit: ing.unit || 'g',
-          name: ing.name || ''
-        }));
-        renderIngredients();
-      }
-
-      function showViewMode(recipeName) {
-        recipeView.classList.add('active');
-        form.classList.remove('active');
-        emptyState.style.display = 'none';
-        editBtn.style.display = 'inline-flex';
-        pdfBtn.style.display = 'inline-flex';
-        deleteBtn.style.display = 'none';
-        formTitle.textContent = recipeName;
-        printName.textContent = recipeName;
-      }
-
-      function showEditMode() {
-        recipeView.classList.remove('active');
-        form.classList.add('active');
-        emptyState.style.display = 'none';
-        editBtn.style.display = 'none';
-        pdfBtn.style.display = 'none';
-        if (currentIndex === -1) {
-          formTitle.textContent = 'New Recipe';
-        } else {
-          formTitle.textContent = 'Editing Recipe';
-        }
-      }
-
-      function displayRecipe(recipe) {
-        if (recipe.ingredients && recipe.ingredients.length > 0) {
-          viewIngredients.innerHTML = recipe.ingredients.map(ing => {
-            const amount = ing.amount || '';
-            const unit = ing.unit || '';
-            const name = ing.name || '';
-            const amountUnit = amount + unit;
-            return `<li><span class="ing-amount-unit">${amountUnit}</span> <span class="ing-name">${name}</span></li>`;
-          }).join('');
-        } else {
-          viewIngredients.innerHTML = '<li style="color: #999; font-style: italic;">No ingredients registered</li>';
-        }
-
-        if (recipe.method) {
-          viewMethod.innerHTML = `<p>${recipe.method.replace(/\n/g, '</p><p>')}</p>`;
-        } else {
-          viewMethod.innerHTML = '<p style="color: #999; font-style: italic;">No instructions registered</p>';
-        }
-      }
-
-      function resetToEmpty() {
-        emptyState.style.display = 'flex';
-        recipeView.classList.remove('active');
-        form.classList.remove('active');
-        editBtn.style.display = 'none';
-        pdfBtn.style.display = 'none';
-        deleteBtn.style.display = 'none';
-        formTitle.textContent = 'New Recipe';
-        currentIndex = -1;
-        renderList(searchInput.value);
-      }
-
-      function loadRecipe(idx) {
-        const r = recipes[idx];
-        if (!r) {
-          resetToEmpty();
-          return;
-        }
-
-        currentIndex = idx;
-        isEditing = false;
-        displayRecipe(r);
-        showViewMode(r.name);
-
-        nameInput.value = r.name;
-        methodInput.value = r.method;
-        indexInput.value = idx;
-        setIngredientsData(r.ingredients || []);
-
-        renderList(searchInput.value);
-      }
-
-      function startEditMode() {
-        if (currentIndex === -1) return;
-        isEditing = true;
-        showEditMode();
-        nameInput.disabled = false;
-        methodInput.disabled = false;
-        saveBtn.innerHTML = '<i class="fas fa-save"></i> Update';
-        nameInput.focus();
-
-        document.querySelectorAll('.autoresize').forEach(textarea => {
-          setTimeout(() => autoResizeTextarea(textarea), 10);
-        });
-      }
-
-      function createNewRecipe() {
+        allRecipes = [];
+        listEl.innerHTML = '';
+        // Reset form/view
         resetToEmpty();
-        isEditing = true;
-        form.reset();
-        ingredients = [];
-        renderIngredients();
-        nameInput.disabled = false;
-        methodInput.disabled = false;
-        indexInput.value = "";
-        saveBtn.innerHTML = '<i class="fas fa-save"></i> Save';
-        showEditMode();
-        nameInput.focus();
-
-        document.querySelectorAll('.autoresize').forEach(textarea => {
-          setTimeout(() => autoResizeTextarea(textarea), 10);
-        });
+        showToast('Logged out', 'info');
+      } catch (error) {
+        showToast('Error logging out', 'error');
       }
+    });
 
-      function goBackToView() {
-        if (currentIndex !== -1 && recipes[currentIndex]) {
-          loadRecipe(currentIndex);
-        } else {
-          resetToEmpty();
-        }
-      }
-
-      function generatePDF() {
-        window.print();
-      }
-
-      listEl.addEventListener("click", (e) => {
-        const item = e.target.closest(".recipe-item");
-        if (item && item.dataset.idx !== undefined) {
-          const idx = Number(item.dataset.idx);
-          if (!isNaN(idx)) loadRecipe(idx);
-        }
-      });
-
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const name = nameInput.value.trim();
-        const method = methodInput.value.trim();
-        const ingredientData = getIngredientsData();
-
-        if (!name || !method || ingredientData.length === 0) {
-          showToast("Please fill in all fields and add at least one ingredient!", "error");
-          return;
-        }
-
-        const recipe = { 
-          name, 
-          ingredients: ingredientData,
-          method 
+    // ========== AUTH STATE OBSERVER ==========
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        currentUser = {
+          uid: user.uid,
+          displayName: user.displayName || user.email,
+          email: user.email
         };
-        
-        const idx = indexInput.value;
-
-        if (idx === "") {
-          recipes.push(recipe);
-          const newIdx = recipes.length - 1;
-          saveToStorage();
-          renderList(searchInput.value);
-          loadRecipe(newIdx);
-          showToast(`"${name}" created successfully!`, "success");
-        } else {
-          recipes[idx] = recipe;
-          saveToStorage();
-          renderList(searchInput.value);
-          loadRecipe(Number(idx));
-          showToast(`"${name}" updated!`, "success");
+        userDisplayName.textContent = currentUser.displayName;
+        showApp();
+        // Start listening to recipes
+        loadRecipes();
+      } else {
+        currentUser = null;
+        showLogin();
+        if (unsubscribeRecipes) {
+          unsubscribeRecipes();
+          unsubscribeRecipes = null;
         }
-      });
+        allRecipes = [];
+        listEl.innerHTML = '';
+        resetToEmpty();
+      }
+    });
 
-      editBtn.addEventListener("click", startEditMode);
-      
-      backBtn.addEventListener("click", goBackToView);
-
-      deleteBtn.addEventListener("click", () => {
-        const idx = Number(indexInput.value);
-        if (isNaN(idx)) return;
-        const name = recipes[idx]?.name || "";
-
-        if (confirm(`Delete "${name}"?`)) {
-          recipes.splice(idx, 1);
-          saveToStorage();
-          resetToEmpty();
-          showToast(`"${name}" deleted!`, "success");
-          if (recipes.length > 0) {
-            loadRecipe(0);
-          }
-        }
-      });
-
-      newBtnSidebar.addEventListener("click", createNewRecipe);
-      createFromEmpty.addEventListener("click", createNewRecipe);
-
-      searchInput.addEventListener("input", () => {
+    // ========== FIRESTORE RECIPES ==========
+    function loadRecipes() {
+      if (unsubscribeRecipes) unsubscribeRecipes();
+      const q = query(collection(db, "recipes"), orderBy("createdAt", "desc"));
+      unsubscribeRecipes = onSnapshot(q, (snapshot) => {
+        allRecipes = [];
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          allRecipes.push({
+            id: doc.id,
+            ...data
+          });
+        });
         renderList(searchInput.value);
+        // If there is a currently selected recipe, update it if it still exists
+        if (currentRecipeId) {
+          const exists = allRecipes.find(r => r.id === currentRecipeId);
+          if (!exists) {
+            resetToEmpty();
+          } else {
+            // If the selected recipe was updated, refresh view
+            // We can just reload the recipe if it's the same id
+            const selected = allRecipes.find(r => r.id === currentRecipeId);
+            if (selected) {
+              displayRecipe(selected);
+              // update form data too
+              nameInput.value = selected.name;
+              methodInput.value = selected.method || '';
+              setIngredientsData(selected.ingredients || []);
+              recipeIdInput.value = selected.id;
+            }
+          }
+        } else if (allRecipes.length > 0) {
+          // Load the first recipe if nothing selected
+          loadRecipe(allRecipes[0].id);
+        }
+      }, (error) => {
+        showToast('Error loading recipes: ' + error.message, 'error');
       });
+    }
 
-      addIngredientBtn.addEventListener("click", addIngredient);
+    // ========== RENDER LIST ==========
+    function renderList(filter = "") {
+      listEl.innerHTML = "";
+      const filtered = allRecipes.filter((r) =>
+        r.name.toLowerCase().includes(filter.toLowerCase())
+      );
 
-      pdfBtn.addEventListener("click", generatePDF);
+      if (filtered.length === 0) {
+        listEl.innerHTML = `
+          <div class="recipe-empty">
+            <i class="fas fa-utensils"></i>
+            <p>${filter ? 'No recipes found' : 'Start by creating your first recipe!'}</p>
+          </div>
+        `;
+        return;
+      }
 
-      // Init
-      if (recipes.length > 0) {
-        loadRecipe(0);
+      filtered.forEach((recipe) => {
+        const div = document.createElement("div");
+        div.className = "recipe-item";
+        if (recipe.id === currentRecipeId) div.classList.add("active");
+
+        // Show recipe name and author
+        div.innerHTML = `
+          <div class="item-name">${recipe.name}</div>
+          <div class="item-author">by ${recipe.userName || 'Unknown'}</div>
+        `;
+        div.dataset.id = recipe.id;
+        listEl.appendChild(div);
+      });
+    }
+
+    // ========== INGREDIENTS UI ==========
+    function renderIngredients() {
+      if (ingredients.length === 0) {
+        ingredientsList.innerHTML = `
+          <div class="ingredients-empty">
+            <i class="fas fa-plus-circle" style="font-size: 1.5rem; display: block; margin-bottom: 8px;"></i>
+            <p>Click "Add Ingredient" to get started</p>
+          </div>
+        `;
+        return;
+      }
+
+      ingredientsList.innerHTML = '';
+      ingredients.forEach((ing, idx) => {
+        const row = document.createElement('div');
+        row.className = 'ingredient-row';
+
+        const amountInput = document.createElement('input');
+        amountInput.type = 'number';
+        amountInput.step = '0.01';
+        amountInput.className = 'ingredient-amount';
+        amountInput.placeholder = 'Qty';
+        amountInput.value = ing.amount || '';
+        amountInput.dataset.idx = idx;
+
+        const unitSelect = document.createElement('select');
+        unitSelect.className = 'ingredient-unit';
+        unitSelect.dataset.idx = idx;
+
+        UNITS.forEach(unit => {
+          const option = document.createElement('option');
+          option.value = unit;
+          option.textContent = unit;
+          if (ing.unit === unit) option.selected = true;
+          unitSelect.appendChild(option);
+        });
+
+        const nameInputField = document.createElement('input');
+        nameInputField.type = 'text';
+        nameInputField.className = 'ingredient-name';
+        nameInputField.placeholder = 'Ingredient name';
+        nameInputField.value = ing.name || '';
+        nameInputField.dataset.idx = idx;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'ingredient-remove';
+        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        removeBtn.dataset.idx = idx;
+
+        amountInput.addEventListener('change', function() {
+          const idx = parseInt(this.dataset.idx);
+          ingredients[idx].amount = this.value;
+        });
+
+        unitSelect.addEventListener('change', function() {
+          const idx = parseInt(this.dataset.idx);
+          ingredients[idx].unit = this.value;
+        });
+
+        nameInputField.addEventListener('change', function() {
+          const idx = parseInt(this.dataset.idx);
+          ingredients[idx].name = this.value;
+        });
+
+        removeBtn.addEventListener('click', function() {
+          const idx = parseInt(this.dataset.idx);
+          ingredients.splice(idx, 1);
+          renderIngredients();
+        });
+
+        row.appendChild(amountInput);
+        row.appendChild(unitSelect);
+        row.appendChild(nameInputField);
+        row.appendChild(removeBtn);
+        ingredientsList.appendChild(row);
+      });
+    }
+
+    function addIngredient() {
+      ingredients.push({ amount: '', unit: 'g', name: '' });
+      renderIngredients();
+      const amountInputs = ingredientsList.querySelectorAll('.ingredient-amount');
+      if (amountInputs.length > 0) {
+        amountInputs[amountInputs.length - 1].focus();
+      }
+    }
+
+    function getIngredientsData() {
+      const rows = ingredientsList.querySelectorAll('.ingredient-row');
+      const data = [];
+      rows.forEach(row => {
+        const amount = row.querySelector('.ingredient-amount')?.value || '';
+        const unit = row.querySelector('.ingredient-unit')?.value || 'g';
+        const name = row.querySelector('.ingredient-name')?.value || '';
+        if (name.trim()) {
+          data.push({ amount, unit, name });
+        }
+      });
+      return data;
+    }
+
+    function setIngredientsData(data) {
+      ingredients = data.map(ing => ({
+        amount: ing.amount || '',
+        unit: ing.unit || 'g',
+        name: ing.name || ''
+      }));
+      renderIngredients();
+    }
+
+    // ========== RECIPE CRUD ==========
+    function displayRecipe(recipe) {
+      printName.textContent = recipe.name;
+
+      if (recipe.ingredients && recipe.ingredients.length > 0) {
+        viewIngredients.innerHTML = recipe.ingredients.map(ing => {
+          const amount = ing.amount || '';
+          const unit = ing.unit || '';
+          const name = ing.name || '';
+          const amountUnit = amount + unit;
+          return `<li><span class="ing-amount-unit">${amountUnit}</span> <span class="ing-name">${name}</span></li>`;
+        }).join('');
+      } else {
+        viewIngredients.innerHTML = '<li style="color: #999; font-style: italic;">No ingredients registered</li>';
+      }
+
+      if (recipe.method) {
+        viewMethod.innerHTML = `<p>${recipe.method.replace(/\n/g, '</p><p>')}</p>`;
+      } else {
+        viewMethod.innerHTML = '<p style="color: #999; font-style: italic;">No instructions registered</p>';
+      }
+
+      // Update form data (for editing)
+      nameInput.value = recipe.name;
+      methodInput.value = recipe.method || '';
+      setIngredientsData(recipe.ingredients || []);
+      recipeIdInput.value = recipe.id;
+    }
+
+    function showViewMode(recipeName) {
+      recipeView.classList.add('active');
+      form.classList.remove('active');
+      emptyState.style.display = 'none';
+      editBtn.style.display = 'inline-flex';
+      pdfBtn.style.display = 'inline-flex';
+      deleteBtn.style.display = 'none';
+      formTitle.textContent = recipeName;
+    }
+
+    function showEditMode() {
+      recipeView.classList.remove('active');
+      form.classList.add('active');
+      emptyState.style.display = 'none';
+      editBtn.style.display = 'none';
+      pdfBtn.style.display = 'none';
+      if (!currentRecipeId) {
+        formTitle.textContent = 'New Recipe';
+      } else {
+        formTitle.textContent = 'Editing Recipe';
+      }
+    }
+
+    function resetToEmpty() {
+      emptyState.style.display = 'flex';
+      recipeView.classList.remove('active');
+      form.classList.remove('active');
+      editBtn.style.display = 'none';
+      pdfBtn.style.display = 'none';
+      deleteBtn.style.display = 'none';
+      formTitle.textContent = 'New Recipe';
+      currentRecipeId = null;
+      recipeIdInput.value = '';
+      // Clear form
+      nameInput.value = '';
+      methodInput.value = '';
+      ingredients = [];
+      renderIngredients();
+      renderList(searchInput.value);
+    }
+
+    function loadRecipe(id) {
+      const recipe = allRecipes.find(r => r.id === id);
+      if (!recipe) {
+        resetToEmpty();
+        return;
+      }
+      currentRecipeId = id;
+      displayRecipe(recipe);
+      showViewMode(recipe.name);
+      // Highlight list
+      document.querySelectorAll('.recipe-item').forEach(el => {
+        el.classList.toggle('active', el.dataset.id === id);
+      });
+      // Update form hidden id
+      recipeIdInput.value = id;
+    }
+
+    // ========== SAVE RECIPE ==========
+    async function saveRecipe(recipeData) {
+      if (!currentUser) {
+        showToast('You must be logged in to save.', 'error');
+        return;
+      }
+
+      const { name, ingredients, method } = recipeData;
+      if (!name || !ingredients.length || !method) {
+        showToast('Please fill in all fields and add at least one ingredient.', 'error');
+        return;
+      }
+
+      const payload = {
+        name,
+        ingredients,
+        method,
+        uid: currentUser.uid,
+        userName: currentUser.displayName,
+        updatedAt: serverTimestamp()
+      };
+
+      try {
+        if (currentRecipeId) {
+          // Update existing
+          await updateDoc(doc(db, "recipes", currentRecipeId), payload);
+          showToast(`"${name}" updated successfully!`, 'success');
+        } else {
+          // Create new
+          payload.createdAt = serverTimestamp();
+          const docRef = await addDoc(collection(db, "recipes"), payload);
+          currentRecipeId = docRef.id;
+          showToast(`"${name}" created successfully!`, 'success');
+          // Load the new recipe
+          loadRecipe(docRef.id);
+        }
+        // Clear form and return to view
+        // The onSnapshot will refresh the list and we reload the recipe
+      } catch (error) {
+        showToast('Error saving recipe: ' + error.message, 'error');
+      }
+    }
+
+    // ========== DELETE RECIPE ==========
+    async function deleteRecipe() {
+      if (!currentRecipeId) return;
+      const recipe = allRecipes.find(r => r.id === currentRecipeId);
+      if (!recipe) return;
+
+      if (confirm(`Delete "${recipe.name}"?`)) {
+        try {
+          await deleteDoc(doc(db, "recipes", currentRecipeId));
+          showToast(`"${recipe.name}" deleted!`, 'success');
+          resetToEmpty();
+          // The snapshot will update the list, and we'll go to empty state
+        } catch (error) {
+          showToast('Error deleting recipe: ' + error.message, 'error');
+        }
+      }
+    }
+
+    // ========== EVENT LISTENERS ==========
+
+    // Sidebar new recipe
+    newBtnSidebar.addEventListener('click', () => {
+      resetToEmpty();
+      currentRecipeId = null;
+      recipeIdInput.value = '';
+      form.reset();
+      ingredients = [];
+      renderIngredients();
+      showEditMode();
+      nameInput.focus();
+    });
+
+    createFromEmpty.addEventListener('click', () => {
+      newBtnSidebar.click();
+    });
+
+    // List click
+    listEl.addEventListener('click', (e) => {
+      const item = e.target.closest('.recipe-item');
+      if (item && item.dataset.id) {
+        loadRecipe(item.dataset.id);
+      }
+    });
+
+    // Edit
+    editBtn.addEventListener('click', () => {
+      if (!currentRecipeId) return;
+      showEditMode();
+      nameInput.disabled = false;
+      methodInput.disabled = false;
+      saveBtn.innerHTML = '<i class="fas fa-save"></i> Update';
+      nameInput.focus();
+      document.querySelectorAll('.autoresize').forEach(textarea => {
+        setTimeout(() => autoResizeTextarea(textarea), 10);
+      });
+    });
+
+    // Back
+    backBtn.addEventListener('click', () => {
+      if (currentRecipeId) {
+        loadRecipe(currentRecipeId);
       } else {
         resetToEmpty();
       }
-      renderList();
-    })();
+    });
+
+    // Delete
+    deleteBtn.addEventListener('click', deleteRecipe);
+
+    // Submit form
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = nameInput.value.trim();
+      const method = methodInput.value.trim();
+      const ingredientsData = getIngredientsData();
+
+      await saveRecipe({ name, ingredients: ingredientsData, method });
+    });
+
+    // Add ingredient
+    addIngredientBtn.addEventListener('click', addIngredient);
+
+    // Search
+    searchInput.addEventListener('input', () => {
+      renderList(searchInput.value);
+    });
+
+    // PDF
+    pdfBtn.addEventListener('click', () => {
+      window.print();
+    });
+
+    // Auto-resize textarea
+    function autoResizeTextarea(textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+
+    document.querySelectorAll('.autoresize').forEach(textarea => {
+      textarea.addEventListener('input', function() {
+        autoResizeTextarea(this);
+      });
+      setTimeout(() => autoResizeTextarea(textarea), 0);
+    });
+
+    // ========== INIT ==========
+    // Initial state: login screen is visible by default, app hidden.
+    // Auth state listener will handle showing the app.
+    // Also, we need to handle the case where the user is already logged in.
+    // The onAuthStateChanged will trigger and call loadRecipes.
+    // For the first load, we will have no recipes, so empty state.
+
+    // If the user is already logged in, the listener will fire and show the app.
+    // If not, login screen stays.
+
+    // Note: The `loadRecipes` function sets up the snapshot listener.
+    // We also need to handle the case where the user logs out: we detach listener.
+    // Already handled in onAuthStateChanged.
+
+    // Ensure that after login, the recipes load and the first recipe is selected if available.
+    // The snapshot callback will handle that.
+
+    console.log('Firebase app initialized. Ready.');
   </script>
 </body>
 </html>
