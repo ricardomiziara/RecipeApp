@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -362,7 +362,6 @@
       display: flex;
     }
 
-    /* Cabeçalho da receita: visível apenas na impressão */
     .recipe-view-header {
       display: none;
       border-bottom: 2px solid #1a1a1a;
@@ -757,7 +756,6 @@
 
     /* ========== PRINT ========== */
     @media print {
-      /* Esconde tudo que não é a receita */
       .sidebar,
       .content-top,
       .action-buttons-top,
@@ -788,7 +786,6 @@
         padding: 0 !important;
       }
 
-      /* Mostra o cabeçalho da receita apenas na impressão */
       .recipe-view-header {
         display: block !important;
       }
@@ -924,11 +921,11 @@
         </div>
         <div class="search-box">
           <i class="fas fa-search"></i>
-          <input id="search" type="text" placeholder="Buscar receitas..." />
+          <input id="search" type="text" placeholder="Search recipes..." />
         </div>
         <button id="newBtnSidebar" class="btn-sidebar-new">
           <i class="fas fa-plus"></i>
-          Nova Receita
+          New Recipe
         </button>
       </div>
       <div class="recipe-list" id="recipeList"></div>
@@ -938,16 +935,16 @@
     <main class="main-content">
       <div class="content-top">
         <div class="title-section">
-          <h1 id="formTitle">Nova Receita</h1>
+          <h1 id="formTitle">New Recipe</h1>
         </div>
         <div class="action-buttons-top">
           <button id="pdfBtn" class="btn-sm btn-sm-pdf" style="display: none;">
             <i class="fas fa-file-pdf"></i>
-            Gerar PDF
+            Generate PDF
           </button>
           <button id="editBtn" class="btn-sm btn-sm-secondary" style="display: none;">
             <i class="fas fa-pen"></i>
-            Editar
+            Edit
           </button>
         </div>
       </div>
@@ -957,38 +954,37 @@
         <div class="empty-icon">
           <i class="fas fa-utensil-spoon"></i>
         </div>
-        <h3>Nenhuma receita selecionada</h3>
-        <p>Escolha uma receita da lista ao lado ou crie uma nova para começar</p>
+        <h3>No recipe selected</h3>
+        <p>Choose a recipe from the list or create a new one to get started</p>
         <button class="btn-create" id="createFromEmpty">
           <i class="fas fa-plus-circle"></i>
-          Criar Nova Receita
+          Create New Recipe
         </button>
       </div>
 
-      <!-- Recipe View (PDF Style) -->
+      <!-- Recipe View -->
       <div id="recipeView" class="recipe-view">
-        <!-- Cabeçalho visível apenas na impressão -->
         <div class="recipe-view-header">
-          <h1 id="printName">Nome da Receita</h1>
+          <h1 id="printName">Recipe Name</h1>
         </div>
 
         <div class="recipe-view-section">
-          <h2>Ingredientes</h2>
+          <h2>Ingredients</h2>
           <ul class="recipe-view-ingredients" id="viewIngredients">
-            <li style="color: #999; font-style: italic;">Nenhum ingrediente cadastrado</li>
+            <li style="color: #999; font-style: italic;">No ingredients registered</li>
           </ul>
         </div>
 
         <div class="recipe-view-section">
-          <h2>Modo de Preparo</h2>
+          <h2>Method</h2>
           <div class="recipe-view-method" id="viewMethod">
-            <p style="color: #999; font-style: italic;">Nenhum modo de preparo cadastrado</p>
+            <p style="color: #999; font-style: italic;">No instructions registered</p>
           </div>
         </div>
 
         <div class="recipe-view-footer">
           <span>Mimi's Recipes</span>
-          <span>Receita criada com ♥</span>
+          <span>RCM App</span>
         </div>
       </div>
 
@@ -997,45 +993,45 @@
         <input type="hidden" id="recipeIndex" />
 
         <div class="form-group">
-          <label for="name">Nome da receita</label>
-          <input id="name" type="text" placeholder="Ex: Bolo de chocolate" required />
+          <label for="name">Recipe name</label>
+          <input id="name" type="text" placeholder="E.g.: Chocolate cake" required />
         </div>
 
         <div class="form-group">
-          <label for="ingredients">Ingredientes</label>
+          <label for="ingredients">Ingredients</label>
           <div class="ingredients-container" id="ingredientsContainer">
             <div id="ingredientsList">
               <div class="ingredients-empty">
                 <i class="fas fa-plus-circle" style="font-size: 1.5rem; display: block; margin-bottom: 8px;"></i>
-                <p>Clique em "Adicionar Ingrediente" para começar</p>
+                <p>Click "Add Ingredient" to get started</p>
               </div>
             </div>
             <div class="ingredients-actions">
               <button type="button" class="btn-add-ingredient" id="addIngredientBtn">
                 <i class="fas fa-plus"></i>
-                Adicionar Ingrediente
+                Add Ingredient
               </button>
             </div>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="method">Modo de preparo</label>
-          <textarea id="method" class="autoresize" placeholder="Descreva o passo a passo do preparo" required></textarea>
+          <label for="method">Method</label>
+          <textarea id="method" class="autoresize" placeholder="Describe the step-by-step instructions" required></textarea>
         </div>
 
         <div class="form-actions">
           <button type="submit" class="btn btn-primary" id="saveBtn">
             <i class="fas fa-save"></i>
-            Salvar
+            Save
           </button>
           <button type="button" id="deleteBtn" class="btn btn-danger" style="display: none;">
             <i class="fas fa-trash"></i>
-            Excluir
+            Delete
           </button>
           <button type="button" id="backBtn" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i>
-            Voltar
+            Back
           </button>
         </div>
       </form>
@@ -1063,7 +1059,6 @@
       const ingredientsList = document.getElementById("ingredientsList");
       const addIngredientBtn = document.getElementById("addIngredientBtn");
 
-      // View elements
       const viewIngredients = document.getElementById("viewIngredients");
       const viewMethod = document.getElementById("viewMethod");
       const printName = document.getElementById("printName");
@@ -1123,7 +1118,7 @@
           listEl.innerHTML = `
             <div class="recipe-empty">
               <i class="fas fa-utensils"></i>
-              <p>${filter ? 'Nenhuma receita encontrada' : 'Comece criando sua primeira receita!'}</p>
+              <p>${filter ? 'No recipes found' : 'Start by creating your first recipe!'}</p>
             </div>
           `;
           return;
@@ -1146,7 +1141,7 @@
           ingredientsList.innerHTML = `
             <div class="ingredients-empty">
               <i class="fas fa-plus-circle" style="font-size: 1.5rem; display: block; margin-bottom: 8px;"></i>
-              <p>Clique em "Adicionar Ingrediente" para começar</p>
+              <p>Click "Add Ingredient" to get started</p>
             </div>
           `;
           return;
@@ -1161,7 +1156,7 @@
           amountInput.type = 'number';
           amountInput.step = '0.01';
           amountInput.className = 'ingredient-amount';
-          amountInput.placeholder = 'Qtd';
+          amountInput.placeholder = 'Qty';
           amountInput.value = ing.amount || '';
           amountInput.dataset.idx = idx;
 
@@ -1180,7 +1175,7 @@
           const nameInputField = document.createElement('input');
           nameInputField.type = 'text';
           nameInputField.className = 'ingredient-name';
-          nameInputField.placeholder = 'Nome do ingrediente';
+          nameInputField.placeholder = 'Ingredient name';
           nameInputField.value = ing.name || '';
           nameInputField.dataset.idx = idx;
 
@@ -1259,7 +1254,6 @@
         pdfBtn.style.display = 'inline-flex';
         deleteBtn.style.display = 'none';
         formTitle.textContent = recipeName;
-        // Atualiza o nome para impressão
         printName.textContent = recipeName;
       }
 
@@ -1270,9 +1264,9 @@
         editBtn.style.display = 'none';
         pdfBtn.style.display = 'none';
         if (currentIndex === -1) {
-          formTitle.textContent = 'Nova Receita';
+          formTitle.textContent = 'New Recipe';
         } else {
-          formTitle.textContent = 'Editando Receita';
+          formTitle.textContent = 'Editing Recipe';
         }
       }
 
@@ -1286,13 +1280,13 @@
             return `<li><span class="ing-amount-unit">${amountUnit}</span> <span class="ing-name">${name}</span></li>`;
           }).join('');
         } else {
-          viewIngredients.innerHTML = '<li style="color: #999; font-style: italic;">Nenhum ingrediente cadastrado</li>';
+          viewIngredients.innerHTML = '<li style="color: #999; font-style: italic;">No ingredients registered</li>';
         }
 
         if (recipe.method) {
           viewMethod.innerHTML = `<p>${recipe.method.replace(/\n/g, '</p><p>')}</p>`;
         } else {
-          viewMethod.innerHTML = '<p style="color: #999; font-style: italic;">Nenhum modo de preparo cadastrado</p>';
+          viewMethod.innerHTML = '<p style="color: #999; font-style: italic;">No instructions registered</p>';
         }
       }
 
@@ -1303,7 +1297,7 @@
         editBtn.style.display = 'none';
         pdfBtn.style.display = 'none';
         deleteBtn.style.display = 'none';
-        formTitle.textContent = 'Nova Receita';
+        formTitle.textContent = 'New Recipe';
         currentIndex = -1;
         renderList(searchInput.value);
       }
@@ -1334,7 +1328,7 @@
         showEditMode();
         nameInput.disabled = false;
         methodInput.disabled = false;
-        saveBtn.innerHTML = '<i class="fas fa-save"></i> Atualizar';
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> Update';
         nameInput.focus();
 
         document.querySelectorAll('.autoresize').forEach(textarea => {
@@ -1351,7 +1345,7 @@
         nameInput.disabled = false;
         methodInput.disabled = false;
         indexInput.value = "";
-        saveBtn.innerHTML = '<i class="fas fa-save"></i> Salvar';
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> Save';
         showEditMode();
         nameInput.focus();
 
@@ -1369,11 +1363,9 @@
       }
 
       function generatePDF() {
-        // Aciona a impressão, que gera o PDF
         window.print();
       }
 
-      // Event Listeners
       listEl.addEventListener("click", (e) => {
         const item = e.target.closest(".recipe-item");
         if (item && item.dataset.idx !== undefined) {
@@ -1390,7 +1382,7 @@
         const ingredientData = getIngredientsData();
 
         if (!name || !method || ingredientData.length === 0) {
-          showToast("Preencha todos os campos e adicione pelo menos um ingrediente!", "error");
+          showToast("Please fill in all fields and add at least one ingredient!", "error");
           return;
         }
 
@@ -1408,13 +1400,13 @@
           saveToStorage();
           renderList(searchInput.value);
           loadRecipe(newIdx);
-          showToast(`"${name}" criada com sucesso!`, "success");
+          showToast(`"${name}" created successfully!`, "success");
         } else {
           recipes[idx] = recipe;
           saveToStorage();
           renderList(searchInput.value);
           loadRecipe(Number(idx));
-          showToast(`"${name}" atualizada!`, "success");
+          showToast(`"${name}" updated!`, "success");
         }
       });
 
@@ -1427,11 +1419,11 @@
         if (isNaN(idx)) return;
         const name = recipes[idx]?.name || "";
 
-        if (confirm(`Excluir "${name}"?`)) {
+        if (confirm(`Delete "${name}"?`)) {
           recipes.splice(idx, 1);
           saveToStorage();
           resetToEmpty();
-          showToast(`"${name}" excluída!`, "success");
+          showToast(`"${name}" deleted!`, "success");
           if (recipes.length > 0) {
             loadRecipe(0);
           }
